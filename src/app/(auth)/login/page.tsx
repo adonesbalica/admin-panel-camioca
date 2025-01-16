@@ -6,17 +6,37 @@ import { LoginForm, LoginSchema } from '@/utils/schemas/auth.schema'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 const LoginPage = () => {
+  const [loading, setLoading] = useState(false)
   const router = useRouter()
 
-  const { handleSubmit } = useForm<LoginForm>({
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<LoginForm>({
     resolver: zodResolver(LoginSchema),
+    defaultValues: {
+      email: 'email@gmail.com',
+      password: 'abc@12345',
+    },
   })
 
-  const handleFormSubmit = () => {
-    router.push('/dashboard')
+  const handleFormSubmit = async () => {
+    setLoading(true)
+
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 2000))
+
+      router.push('/dashboard')
+    } catch (error) {
+      console.error('Erro ao enviar formulário', error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -38,11 +58,13 @@ const LoginPage = () => {
           >
             <span className="inline-block text-xs">Email address</span>
             <input
+              {...register('email')}
               type="text"
               id="email"
               placeholder="example@gmail.com"
               className="placeholder:text-[#8E8E93] placeholder:font-light placeholder:font-sm px-[14px] py-[10px] bg-[#F1F1F1] rounded outline-none w-full font-light"
             />
+            {errors.email && errors.email.message}
           </label>
 
           <label
@@ -51,22 +73,25 @@ const LoginPage = () => {
           >
             <span className="inline-block text-xs">Password</span>
             <input
+              {...register('password')}
               type="password"
               id="password"
               placeholder="Password"
               className="placeholder:text-[#8E8E93] placeholder:font-light placeholder:font-sm px-[14px] py-[10px] bg-[#F1F1F1] rounded outline-none w-full font-light"
             />
+            {errors.password && errors.password.message}
           </label>
 
           <p className="text-xs text-[#8E8E93] w-[226px] text-left	">
             Use at least 8 characters with 1 number, and one special character.
           </p>
 
-          <input
+          <button
             type="submit"
-            value="LOGIN"
             className="cursor-pointer mt-4 w-[226px] font-medium text-white bg-[#27AE60] py-2 rounded-[34px]"
-          />
+          >
+            {loading ? 'Loading...' : 'LOGIN'}
+          </button>
 
           <Link
             href="/forgot-password"
