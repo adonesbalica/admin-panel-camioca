@@ -10,6 +10,7 @@ export const SearchNavbar = () => {
         <ChevronDown size={20} className="cursor-pointer" stroke="#8E8E93" />
       </div>
       <div className="flex items-center w-full">
+        {/* Campo de busca com responsividade */}
         <div className="flex items-center relative flex-1">
           <Search
             size={20}
@@ -19,10 +20,11 @@ export const SearchNavbar = () => {
           <input
             type="text"
             placeholder="Quick search"
-            className="pl-10 pr-4 py-2 rounded-lg focus:outline-none w-1/2"
+            className="pl-10 pr-4 py-2 rounded-lg focus:outline-none w-full md:w-1/2 lg:w-2/3 xl:w-1/2"
           />
         </div>
 
+        {/* Ícone de sino */}
         <div className="flex items-center justify-center ml-4">
           <Bell size={20} stroke="#2F80ED" fill="#2F80ED" />
         </div>

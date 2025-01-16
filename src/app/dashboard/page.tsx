@@ -1,7 +1,7 @@
 const DashboardPage = () => {
   return (
-    <div>
-      <h1>Dashboard</h1>
+    <div className="bg-[#F1F1F1] ">
+      <h1>Dashboard</h1>a
     </div>
   )
 }
