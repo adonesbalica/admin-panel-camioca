@@ -1,16 +1,12 @@
 import type { Metadata } from 'next'
 import { Roboto } from 'next/font/google'
-import { Montserrat } from 'next/font/google'
 
-import './globals.css'
+import '@/app/globals.css'
+
+import { Navbar } from '@/components/navbar'
 
 const roboto = Roboto({
   weight: ['100', '300', '400', '500', '700', '900'],
-  subsets: ['latin'],
-})
-
-export const montserrat = Montserrat({
-  weight: '800',
   subsets: ['latin'],
 })
 
@@ -26,7 +22,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${roboto.className} antialiased`}>{children}</body>
+      <body className={`${roboto.className} antialiased`}>
+        <Navbar />
+        {children}
+      </body>
     </html>
   )
 }
