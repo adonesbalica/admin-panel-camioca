@@ -6,7 +6,11 @@ interface ProfilePictureProps {
   size?: number
 }
 
-const ProfilePicture = ({ src, alt, size = 100 }: ProfilePictureProps) => {
+export const ProfilePicture = ({
+  src,
+  alt,
+  size = 100,
+}: ProfilePictureProps) => {
   return (
     <div
       className="overflow-hidden rounded-full"
@@ -22,5 +26,3 @@ const ProfilePicture = ({ src, alt, size = 100 }: ProfilePictureProps) => {
     </div>
   )
 }
-
-export default ProfilePicture

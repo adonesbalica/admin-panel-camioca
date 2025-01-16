@@ -1,16 +1,31 @@
-import { Bell, ChevronDown, Search } from 'lucide-react'
-import ProfilePicture from './ProfilePicture'
+'use client'
+
+import { Bell, ChevronDown, ChevronUp, Search } from 'lucide-react'
+import { ProfilePicture } from './ProfilePicture'
+import { useState } from 'react'
+import { Dropdown } from './Dropdown'
 
 export const SearchNavbar = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+
+  const handleOpenDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen)
+  }
+
   return (
     <div className="flex items-center px-4 py-5 w-screen">
       <div className="flex items-center gap-x-4 mr-8">
         <ProfilePicture src="/avatar.png" alt="profile pic" size={40} />
         <p className="font-medium text-xl max-w-xs truncate">Dominique Ch.</p>
-        <ChevronDown size={20} className="cursor-pointer" stroke="#8E8E93" />
+        <div onClick={handleOpenDropdown} className="cursor-pointer">
+          {isDropdownOpen ? (
+            <ChevronUp size={20} stroke="#2F80ED" />
+          ) : (
+            <ChevronDown size={20} stroke="#8E8E93" />
+          )}
+        </div>
       </div>
       <div className="flex items-center w-full">
-        {/* Campo de busca com responsividade */}
         <div className="flex items-center relative flex-1">
           <Search
             size={20}
@@ -24,11 +39,12 @@ export const SearchNavbar = () => {
           />
         </div>
 
-        {/* Ícone de sino */}
         <div className="flex items-center justify-center ml-4">
           <Bell size={20} stroke="#2F80ED" fill="#2F80ED" />
         </div>
       </div>
+
+      {isDropdownOpen && <Dropdown />}
     </div>
   )
 }
